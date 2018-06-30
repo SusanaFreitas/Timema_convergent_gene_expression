@@ -39,6 +39,7 @@ This is the repository for the collected scripts used in the study *"Genes invol
 ## Infomation on running scripts
 
 * All scripts should be run from the directory they are in. Output directories will be created to store output as the code is run. 
+* All python scripts were made using python 3.5. All contain help information which can be displayed by specifying no command line arguments.
 * R code for cross_sp_edgeR.R and cross_sp_topGO.R are expected to be run in a loop for each reference species. For example (using bash):
 
 ```
@@ -69,11 +70,12 @@ done
 python Nconvergentgenes_out_tidier.py -i rand_out_Nconvergentgenes_out/ -o rand
 ```
 
+
 * Plot histograms to see distribution using 10sp_EdgeR_for_randomised_datasets_plots.R
 
 
 
-* All python scripts were made using python 3.5. All contain help information which can be displayed by specifying no command line arguments.
+
 
 ## Abbreviations
 
