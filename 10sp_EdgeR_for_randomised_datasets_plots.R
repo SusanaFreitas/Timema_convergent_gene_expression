@@ -16,6 +16,7 @@ library(RColorBrewer)
 require(vegan)
 library(pvclust)
 library(raster)
+library(modeest)
 
 print (sessionInfo())
 
@@ -34,13 +35,14 @@ print (sessionInfo())
 # [1] grid      stats     graphics  grDevices utils     datasets  methods   base     
 
 # other attached packages:
- # [1] raster_2.5-8        sp_1.2-5            pvclust_2.0-0       vegan_2.4-4         permute_0.9-4       RColorBrewer_1.1-2  pheatmap_1.0.8      gtable_0.2.0        stringr_1.2.0      
-# [10] cowplot_0.8.0       lattice_0.20-35     ggplot2_2.2.1       gridExtra_2.3       VennDiagram_1.6.17  futile.logger_1.4.3
+ # [1] modeest_2.1         raster_2.5-8        sp_1.2-5            pvclust_2.0-0       vegan_2.4-4         permute_0.9-4       RColorBrewer_1.1-2  pheatmap_1.0.8      gtable_0.2.0       
+# [10] stringr_1.2.0       cowplot_0.8.0       lattice_0.20-35     ggplot2_2.2.1       gridExtra_2.3       VennDiagram_1.6.17  futile.logger_1.4.3
 
 # loaded via a namespace (and not attached):
- # [1] Rcpp_0.12.13         cluster_2.0.6        magrittr_1.5         MASS_7.3-47          munsell_0.4.3        colorspace_1.3-2     rlang_0.1.6          plyr_1.8.4          
- # [9] tools_3.4.1          parallel_3.4.1       nlme_3.1-131         mgcv_1.8-22          lambda.r_1.2         lazyeval_0.2.1       tibble_1.3.4         Matrix_1.2-11       
-# [17] futile.options_1.0.0 stringi_1.1.5        compiler_3.4.1       scales_0.5.0 
+ # [1] Rcpp_0.12.13         cluster_2.0.6        magrittr_1.5         MASS_7.3-47          munsell_0.4.3        colorspace_1.3-2     rlang_0.1.6          plyr_1.8.4           tools_3.4.1         
+# [10] parallel_3.4.1       nlme_3.1-131         mgcv_1.8-22          lambda.r_1.2         lazyeval_0.2.1       tibble_1.3.4         Matrix_1.2-11        futile.options_1.0.0 stringi_1.1.5       
+# [19] compiler_3.4.1       scales_0.5.0      
+
 
 #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 # Data
@@ -55,6 +57,20 @@ N_LG_converge = 206
 
 
 ### stats
+
+#### modes
+
+N_conv_modes = c(mlv(dat1$WB, , method = "mfv")$M, mlv(dat1$RT, , method = "mfv")$M, mlv(dat1$LG, , method = "mfv")$M)
+
+
+N_conv_modes_df <- as.data.frame(cbind(
+c("WB", "RT", "LG"),
+N_conv_modes,
+c(N_WB_converge, N_RT_converge, N_LG_converge)
+))
+
+colnames(N_conv_modes_df) <- c("Tissue","Mode_of_perm","Obs")
+N_conv_modes_df
 
 #### prob of observing a value at least as high as I do: 
 WB_p <- length(subset(dat1, dat1$WB >= N_WB_converge)[,1]) / 10000
