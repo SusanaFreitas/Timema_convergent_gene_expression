@@ -217,12 +217,13 @@ names(RGL_Tcm_LG_10sp_S_A_conv_GL) <- RGL_Tcm_LG_10sp_S_A_conv$V1
 names(RGL_Tpa_LG_10sp_S_A_conv_GL) <- RGL_Tpa_LG_10sp_S_A_conv$V1
 names(RGL_Tps_LG_10sp_S_A_conv_GL) <- RGL_Tps_LG_10sp_S_A_conv$V1
 
-
-run_enrichment <- function(genelist, ref, sig_for_genes, sig_for_GO){
+## set the sig_for_go to set the threshold for significant GO terms from the output of the GSEA
+run_enrichment <- function(genelist, ref, sig_for_GO){
 	
-	### make rule for classing sig / non-sig 
+	### make rule for classing sig / non-sig - note this rule is not used for the GSEA
 	
-	topDiffGenes <- function(allScore) {return(allScore < sig_for_genes)}
+	topDiffGenes <- function(allScore) {return(allScore < 0.05)}
+	# topDiffGenes <- function(allScore) {return(allScore < 1)} ## as a check - setting to one gives the same pvalues for the GSEA
 	
 	#### make GOdata object
 	#### setting node size as 5 so at least 5 genes must be annot per GO terms 
@@ -254,73 +255,73 @@ run_enrichment <- function(genelist, ref, sig_for_genes, sig_for_GO){
 #### run the enrichment stuff (0.05)
 
 # contrasts nr
-RGL_Tbi_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05, 0.05)
-RGL_Tbi_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05, 0.05)
-RGL_Tbi_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05, 0.05)
+RGL_Tbi_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_WB_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05)
+RGL_Tbi_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_RT_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05)
+RGL_Tbi_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_contrasts_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_contrasts_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_contrasts_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_contrasts_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_LG_10sp_S_A_contrasts_nr_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_contrasts_GL, geneID2GO_Tps_nr, 0.05)
 
 # contrasts DROSO
-RGL_Tbi_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
-RGL_Tbi_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
-RGL_Tbi_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
+RGL_Tbi_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_WB_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05)
+RGL_Tbi_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_RT_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05)
+RGL_Tbi_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_contrasts_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_contrasts_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_contrasts_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_contrasts_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_LG_10sp_S_A_contrasts_DROSO_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_contrasts_GL, geneID2GO_Tps_DROSO, 0.05)
 
 
 # conv nr
-RGL_Tbi_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05, 0.05)
-RGL_Tbi_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05, 0.05)
-RGL_Tbi_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05, 0.05)
-RGL_Tce_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05, 0.05)
-RGL_Tcm_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05, 0.05)
-RGL_Tpa_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05, 0.05)
-RGL_Tps_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05, 0.05)
+RGL_Tbi_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_WB_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05)
+RGL_Tbi_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_RT_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05)
+RGL_Tbi_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_conv_GL, geneID2GO_Tbi_nr, 0.05)
+RGL_Tce_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_conv_GL, geneID2GO_Tce_nr, 0.05)
+RGL_Tcm_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_conv_GL, geneID2GO_Tcm_nr, 0.05)
+RGL_Tpa_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_conv_GL, geneID2GO_Tpa_nr, 0.05)
+RGL_Tps_LG_10sp_S_A_conv_nr_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_conv_GL, geneID2GO_Tps_nr, 0.05)
 
 # conv DROSO
-RGL_Tbi_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
-RGL_Tbi_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
-RGL_Tbi_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05, 0.05)
-RGL_Tce_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05, 0.05)
-RGL_Tcm_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05, 0.05)
-RGL_Tpa_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05, 0.05)
-RGL_Tps_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05, 0.05)
+RGL_Tbi_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_WB_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_WB_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_WB_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_WB_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_WB_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_WB_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05)
+RGL_Tbi_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_RT_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_RT_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_RT_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_RT_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_RT_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_RT_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05)
+RGL_Tbi_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tbi_LG_10sp_S_A_conv_GL, geneID2GO_Tbi_DROSO, 0.05)
+RGL_Tce_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tce_LG_10sp_S_A_conv_GL, geneID2GO_Tce_DROSO, 0.05)
+RGL_Tcm_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tcm_LG_10sp_S_A_conv_GL, geneID2GO_Tcm_DROSO, 0.05)
+RGL_Tpa_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tpa_LG_10sp_S_A_conv_GL, geneID2GO_Tpa_DROSO, 0.05)
+RGL_Tps_LG_10sp_S_A_conv_DROSO_enrich = run_enrichment(RGL_Tps_LG_10sp_S_A_conv_GL, geneID2GO_Tps_DROSO, 0.05)
 
 
 ###################################################################################################################################
