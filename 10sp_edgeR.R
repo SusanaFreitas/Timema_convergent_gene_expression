@@ -76,7 +76,7 @@ dir.create("10sp_DE_output")
 
 #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 ## into DGE structure - all species together first
-## Tissues seperatly 
+## Tissues separatly 
 ## JUST Females
 ## Note tissue-specific - ALL samples are mated
 
